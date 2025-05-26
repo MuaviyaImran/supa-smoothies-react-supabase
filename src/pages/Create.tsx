@@ -13,7 +13,6 @@ const Create = () => {
   });
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log(formFields);
     if (!formFields.title || !formFields.method || !formFields.rating) {
       setFormError('Please fill in all the fields correctly.');
       return;

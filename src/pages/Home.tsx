@@ -29,7 +29,7 @@ const Home = () => {
   const handleDelete = (id: number) => {
     setSmoothies((prevSmoothies) => {
       if (!prevSmoothies) return null;
-      return prevSmoothies.filter((sm) => sm?.id !== id);
+      return prevSmoothies.filter((smoothie) => smoothie?.id !== id);
     });
   };
   return (

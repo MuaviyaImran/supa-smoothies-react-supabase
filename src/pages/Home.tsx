@@ -25,19 +25,24 @@ const Home = () => {
 
     fetchSmoothies();
   }, []);
+
+  const handleDelete = (id: string) => {
+    setSmoothies((prevSmoothies) => {
+      return prevSmoothies?.filter((sm) => sm?.id !== id);
+    });
+  };
   return (
     <div className='page home'>
       {fetchError && <p className='error'>{fetchError}</p>}
       {smoothies && (
-        <div className='smoothie-grid'>
+        <div className=' smoothies'>
           {/* order by button */}
-          <div className='smoothies'>
+          <div className='smoothie-grid'>
             {smoothies.map((smoothie) => (
               <SmoothieCard
                 key={smoothie.id}
-                title={smoothie.title}
-                method={smoothie.method}
-                rating={smoothie.rating}
+                smoothie={smoothie}
+                onDelete={handleDelete}
               />
             ))}
           </div>

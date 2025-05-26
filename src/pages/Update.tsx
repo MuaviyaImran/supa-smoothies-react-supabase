@@ -6,23 +6,23 @@ import { SMOOTHIES } from '../config/tables.js';
 const Update = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const [title, setTitle] = useState<string>('');
-  const [method, setMethod] = useState<string>('');
-  const [rating, setRating] = useState<string>('');
   const [formError, setFormError] = useState<string | null>(null);
-
+  const [formFields, setFormFields] = useState({
+    title: '',
+    method: '',
+    rating: '',
+  });
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (!title || !method || !rating) {
+    if (!formFields.title || !formFields.method || !formFields.rating) {
       setFormError('Please fill in all the fields correctly.');
       return;
     }
 
     const { data, error } = await supabase
       .from(SMOOTHIES)
-      .update({ title, method, rating })
+      .update(formFields)
       .eq('id', id)
       .select();
 
@@ -47,14 +47,26 @@ const Update = () => {
         navigate('/', { replace: true });
       }
       if (data) {
-        setTitle(data.title);
-        setMethod(data.method);
-        setRating(data.rating);
+        setFormFields({
+          title: data.title,
+          method: data.method,
+          rating: data.rating,
+        });
       }
     };
 
     fetchSmoothie();
   }, [id, navigate]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { id, value } = e.target;
+    setFormFields((prevFields) => ({
+      ...prevFields,
+      [id]: value,
+    }));
+  };
   return (
     <div className='page create'>
       <form onSubmit={handleSubmit}>
@@ -62,23 +74,26 @@ const Update = () => {
         <input
           type='text'
           id='title'
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={formFields.title}
+          onChange={handleChange}
+          name='title'
         />
 
         <label htmlFor='method'>Method:</label>
         <textarea
           id='method'
-          value={method}
-          onChange={(e) => setMethod(e.target.value)}
+          value={formFields.method}
+          onChange={handleChange}
+          name='method'
         />
 
         <label htmlFor='rating'>Rating:</label>
         <input
           type='number'
           id='rating'
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
+          value={formFields.rating}
+          onChange={handleChange}
+          name='rating'
         />
 
         <button>Update Smoothie Recipe</button>

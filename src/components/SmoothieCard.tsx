@@ -16,7 +16,7 @@ const SmoothieCard = ({ smoothie, onDelete }: SmoothieCardProps) => {
       .select();
 
     if (error) {
-      console.log(error);
+      console.error(error);
     }
     if (data) {
       onDelete(smoothie.id!);

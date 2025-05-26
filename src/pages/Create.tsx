@@ -24,11 +24,10 @@ const Create = () => {
       .select();
 
     if (error) {
-      console.log(error);
+      console.error(error);
       setFormError('Please fill in all the fields correctly.');
     }
     if (data) {
-      console.log(data);
       setFormError(null);
       navigate('/');
     }

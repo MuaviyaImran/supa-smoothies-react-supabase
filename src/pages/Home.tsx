@@ -15,7 +15,7 @@ const Home = () => {
       if (error) {
         setFetchError('Could not fetch the smoothies');
         setSmoothies(null);
-        console.log(error);
+        console.error(error);
       }
       if (data) {
         setSmoothies(data);

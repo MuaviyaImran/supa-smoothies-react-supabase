@@ -12,13 +12,13 @@ const SmoothieCard = ({ smoothie, onDelete }: SmoothieCardProps) => {
     const { data, error } = await supabase
       .from(SMOOTHIES)
       .delete()
-      .eq('id', smoothie.id);
+      .eq('id', smoothie.id)
+      .select();
 
     if (error) {
       console.log(error);
     }
     if (data) {
-      console.log(data);
       onDelete(smoothie.id!);
     }
   };

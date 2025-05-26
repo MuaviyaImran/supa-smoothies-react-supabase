@@ -10,7 +10,7 @@ const Create = () => {
   const [rating, setRating] = useState<string>('');
   const [formError, setFormError] = useState<string | null>(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     if (!title || !method || !rating) {

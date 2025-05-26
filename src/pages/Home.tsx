@@ -26,9 +26,10 @@ const Home = () => {
     fetchSmoothies();
   }, []);
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: number) => {
     setSmoothies((prevSmoothies) => {
-      return prevSmoothies?.filter((sm) => sm?.id !== id);
+      if (!prevSmoothies) return null;
+      return prevSmoothies.filter((sm) => sm?.id !== id);
     });
   };
   return (

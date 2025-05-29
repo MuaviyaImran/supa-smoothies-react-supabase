@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-pnpm install
-pnpm dev
+npm install
+npm dev

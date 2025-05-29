@@ -2,17 +2,20 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import supabase from '../config/supabaseClient';
 import { SMOOTHIES } from '../config/tables.js';
+import type { Smoothies } from '../types/supabase.js';
 
 const Create = () => {
   const navigate = useNavigate();
   const [formError, setFormError] = useState<string | null>(null);
-  const [formFields, setFormFields] = useState({
+  // @ts-expect-error: Initializing with empty fields for form, may not match Smoothies type
+  const [formFields, setFormFields] = useState<Smoothies>({
     title: '',
     method: '',
-    rating: '',
+    rating: Number(''),
   });
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    if (!formFields) return;
     if (!formFields.title || !formFields.method || !formFields.rating) {
       setFormError('Please fill in all the fields correctly.');
       return;
@@ -37,7 +40,7 @@ const Create = () => {
   ) => {
     const { id, value } = e.target;
     setFormFields((prevFields) => ({
-      ...prevFields,
+      ...prevFields!,
       [id]: value,
     }));
   };
@@ -49,7 +52,7 @@ const Create = () => {
           type='text'
           id='title'
           name='title'
-          value={formFields.title}
+          value={formFields!.title!}
           onChange={handleChange}
         />
 
@@ -57,7 +60,7 @@ const Create = () => {
         <textarea
           name='method'
           id='method'
-          value={formFields.method}
+          value={formFields!.method!}
           onChange={handleChange}
         />
 
@@ -65,7 +68,7 @@ const Create = () => {
         <input
           type='number'
           id='rating'
-          value={formFields.rating}
+          value={formFields!.rating!}
           name='rating'
           onChange={handleChange}
         />

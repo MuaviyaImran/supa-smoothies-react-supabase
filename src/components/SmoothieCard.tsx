@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-import type { Smoothie } from '../types';
 import { SMOOTHIES } from '../config/tables.js';
 import supabase from '../config/supabaseClient';
 
+import type { Smoothies } from '../types/supabase.js';
+
 type SmoothieCardProps = {
-  smoothie: Smoothie;
+  smoothie: Smoothies;
   onDelete: (id: number) => void;
 };
 const SmoothieCard = ({ smoothie, onDelete }: SmoothieCardProps) => {

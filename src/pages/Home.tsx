@@ -1,12 +1,12 @@
 import supabase from '../config/supabaseClient';
 import { useEffect, useState } from 'react';
-import type { Smoothie } from '../types';
 import SmoothieCard from '../components/SmoothieCard';
 import { SMOOTHIES } from '../config/tables.js';
+import type { Smoothies } from '../types/supabase.js';
 
 const Home = () => {
   const [fetchError, setFetchError] = useState<null | string>(null);
-  const [smoothies, setSmoothies] = useState<Smoothie[] | null>(null);
+  const [smoothies, setSmoothies] = useState<Smoothies[] | null>(null);
   const [orderBy, setOrderBy] = useState('created_at');
   useEffect(() => {
     const fetchSmoothies = async () => {
